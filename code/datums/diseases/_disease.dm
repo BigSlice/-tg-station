@@ -200,3 +200,30 @@ var/list/diseases = typesof(/datum/disease) - /datum/disease
 /datum/disease/proc/remove_virus()
 	affected_mob.viruses -= src		//remove the datum from the list
 	affected_mob.med_hud_set_status()
+
+//Severity Defines
+#define DISEASE_SEVERITY_POSITIVE	"Positive"  //Diseases that buff, heal, or at least do nothing at all
+#define DISEASE_SEVERITY_NONTHREAT	"Harmless"  //Diseases that may have annoying effects, but nothing disruptive (sneezing)
+#define DISEASE_SEVERITY_MINOR		"Minor"	    //Diseases that can annoy in concrete ways (dizziness)
+#define DISEASE_SEVERITY_MEDIUM		"Medium"    //Diseases that can do minor harm, or severe annoyance (vomit)
+#define DISEASE_SEVERITY_HARMFUL	"Harmful"   //Diseases that can do significant harm, or severe disruption (brainrot)
+#define DISEASE_SEVERITY_DANGEROUS 	"Dangerous" //Diseases that can kill or maim if left untreated (flesh eating, blindness)
+#define DISEASE_SEVERITY_BIOHAZARD	"BIOHAZARD" //Diseases that can quickly kill an unprepared victim (fungal tb, gbs)
+
+//Use this to compare severities
+/proc/get_disease_severity_value(severity)
+	switch(severity)
+		if(DISEASE_SEVERITY_POSITIVE)
+			return 1
+		if(DISEASE_SEVERITY_NONTHREAT)
+			return 2
+		if(DISEASE_SEVERITY_MINOR)
+			return 3
+		if(DISEASE_SEVERITY_MEDIUM)
+			return 4
+		if(DISEASE_SEVERITY_HARMFUL)
+			return 5
+		if(DISEASE_SEVERITY_DANGEROUS)
+			return 6
+		if(DISEASE_SEVERITY_BIOHAZARD)
+			return 7
